@@ -20,6 +20,7 @@
             align-items: center;
             color: #333;
             overflow-x: hidden;
+            touch-action: manipulation;
         }
 
         .container {
@@ -49,15 +50,15 @@
         .buttons {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
             gap: 15px;
             margin-top: 25px;
             position: relative;
             min-height: 50px;
+            flex-wrap: wrap;
         }
 
         .btn {
-            padding: 10px 25px;
+            padding: 12px 30px;
             border: none;
             border-radius: 50px;
             font-size: 1rem;
@@ -67,15 +68,20 @@
             position: relative;
             overflow: hidden;
             min-width: 120px;
+            flex: 1;
+            max-width: 150px;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .btn-yes {
             background-color: #4CAF50;
             color: white;
             box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+            z-index: 2;
         }
 
-        .btn-yes:hover {
+        .btn-yes:hover, .btn-yes:active {
             background-color: #3e8e41;
             transform: translateY(-3px);
             box-shadow: 0 7px 20px rgba(76, 175, 80, 0.6);
@@ -85,8 +91,33 @@
             background-color: #f44336;
             color: white;
             box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
-            transition: all 0.1s ease;
-            position: absolute;
+            position: relative;
+            transition: none !important;
+        }
+
+        .btn-no.run-away {
+            transition: all 0.2s linear !important;
+        }
+
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-whatsapp:hover, .btn-whatsapp:active {
+            background-color: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-icon {
+            width: 20px;
+            height: 20px;
         }
 
         .hearts {
@@ -149,7 +180,6 @@
             100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Responsive adjustments */
         @media (max-width: 400px) {
             .container {
                 padding: 20px 15px;
@@ -164,7 +194,7 @@
             }
             
             .btn {
-                padding: 8px 20px;
+                padding: 10px 20px;
                 font-size: 0.9rem;
                 min-width: 100px;
             }
@@ -181,12 +211,11 @@
     
     <div class="container" id="main-container">
         <div class="photo-frame">
-            <!-- Ganti dengan foto Lala jika ada -->
-            <img src="https://i.pinimg.com/originals/7a/05/b1/7a05b1fd9146e5f187a36b7c6a3a6e5c.jpg" alt="Lala">
+            <img src="https://i.ibb.co.com/9HJV1qqk/Whats-App-Image-2025-10-03-at-08-33-40-26125d08.jpg" alt="Lala">
         </div>
-        <h1>Untuk Lala yang Cantik ❤️</h1>
-        <p>Aku ingin mengungkapkan perasaanku padamu. Setiap hari bersamamu adalah anugerah, dan aku tidak bisa membayangkan hidup tanpamu...</p>
-        <p>Maukah kamu menjadi pacarku?</p>
+        <h1>Untuk my fineshyt lala ❤️</h1>
+        <p>Hai lala! pasti kamu udah tau tadi aku ngomong ini. Sebelumnya akuu mau confess nih, kamu tau ga aku sayang bangettt sama kamuu!!! tapi sayangnya masa sayang tapi ga ada hubungan? jadi</p>
+        <p id="question-text">Maukah kamu menjadi pacarku?</p>
         
         <div class="buttons">
             <button class="btn btn-yes" id="btn-yes">Iya, Mau!</button>
@@ -196,21 +225,19 @@
 
     <div class="container hidden" id="response-yes">
         <h1>YAY! ❤️❤️❤️</h1>
-        <p>Aku sangat senang kamu mau menjadi pacarku! Aku janji akan membuatmu bahagia selalu.</p>
-        <p>Ayo kita mulai petualangan indah ini bersama!</p>
+        <p>AKU SENANG BANGETTT KAMU JADI MY FINSEHYT YANG SANGAT CANTIK DAN MILIK AKU</p>
+        <p>I love youu lala ❤️❤️❤️!!</p>
         <div class="photo-frame">
             <img src="https://media.giphy.com/media/3o6Zt6ML6BklcajjsA/giphy.gif" alt="Happy Couple">
         </div>
-    </div>
-
-    <div class="container hidden" id="response-no">
-        <h1>😢 Tunggu dulu...</h1>
-        <p>Aku tahu kamu sebenarnya mau bilang iya, kan? 😊</p>
-        <p>Coba pikir lagi ya, aku akan selalu menunggumu!</p>
-        <div class="photo-frame">
-            <img src="https://media.giphy.com/media/l378BzHA5FwWFXVSg/giphy.gif" alt="Please">
+        <div class="buttons">
+            <a href="https://wa.me/6287866148038?text=Iya akuu mau sam, i love you moree sayang!!!" class="btn btn-whatsapp" id="btn-whatsapp">
+                <svg class="whatsapp-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Chat ke Sam
+            </a>
         </div>
-        <button class="btn btn-yes" id="try-again">Coba Lagi</button>
     </div>
 
     <script>
@@ -219,9 +246,8 @@
             const btnNo = document.getElementById('btn-no');
             const mainContainer = document.getElementById('main-container');
             const responseYes = document.getElementById('response-yes');
-            const responseNo = document.getElementById('response-no');
-            const tryAgainBtn = document.getElementById('try-again');
             const heartsContainer = document.getElementById('hearts');
+            const questionText = document.getElementById('question-text');
             
             let noClicks = 0;
             const messages = [
@@ -249,37 +275,66 @@
             
             setInterval(createHearts, 300);
             
-            // Make the "No" button run away
-            function moveNoButton() {
-                if (noClicks < 3) {
-                    const buttonsDiv = btnNo.parentElement;
-                    const containerWidth = buttonsDiv.offsetWidth;
-                    const containerHeight = buttonsDiv.offsetHeight;
-                    const btnWidth = btnNo.offsetWidth;
-                    const btnHeight = btnNo.offsetHeight;
-                    
-                    const maxX = containerWidth - btnWidth;
-                    const maxY = containerHeight - btnHeight;
-                    
-                    const randomX = Math.floor(Math.random() * maxX);
-                    const randomY = Math.floor(Math.random() * maxY);
-                    
-                    btnNo.style.left = randomX + 'px';
-                    btnNo.style.top = randomY + 'px';
-                    
-                    if (noClicks < messages.length) {
-                        const pElements = mainContainer.querySelectorAll('p');
-                        pElements[pElements.length - 1].textContent = messages[noClicks];
-                    }
-                    
-                    noClicks++;
+            // Make the "No" button run far away
+            function moveNoButtonFar() {
+                const container = btnNo.parentElement.parentElement;
+                const containerRect = container.getBoundingClientRect();
+                const btnRect = btnNo.getBoundingClientRect();
+                
+                // Calculate distance to move (far away)
+                const moveDistance = Math.max(
+                    window.innerWidth * 0.8, 
+                    window.innerHeight * 0.8
+                );
+                
+                // Random direction (angle in radians)
+                const angle = Math.random() * Math.PI * 2;
+                
+                // Calculate new position
+                const newX = Math.cos(angle) * moveDistance;
+                const newY = Math.sin(angle) * moveDistance;
+                
+                // Apply new position
+                btnNo.style.position = 'fixed';
+                btnNo.style.left = `${containerRect.left + btnRect.width/2 + newX}px`;
+                btnNo.style.top = `${containerRect.top + btnRect.height/2 + newY}px`;
+                btnNo.style.transform = 'translate(-50%, -50%)';
+                
+                // Change message
+                if (noClicks < messages.length) {
+                    questionText.textContent = messages[noClicks];
+                } else {
+                    questionText.textContent = messages[messages.length - 1];
                 }
+                
+                // After moving far, bring back after a short delay
+                setTimeout(() => {
+                    resetNoButtonPosition();
+                }, 300);
+                
+                noClicks++;
             }
             
-            btnNo.addEventListener('mouseover', moveNoButton);
+            function resetNoButtonPosition() {
+                btnNo.style.position = 'absolute';
+                btnNo.style.left = '';
+                btnNo.style.top = '';
+                btnNo.style.transform = '';
+            }
+            
+            // Event for desktop (hover)
+            btnNo.addEventListener('mouseover', moveNoButtonFar);
+            
+            // Event for mobile (touch)
             btnNo.addEventListener('touchstart', function(e) {
                 e.preventDefault();
-                moveNoButton();
+                moveNoButtonFar();
+            });
+            
+            // Prevent "No" button click
+            btnNo.addEventListener('click', function(e) {
+                e.preventDefault();
+                moveNoButtonFar();
             });
             
             // Yes button click
@@ -290,26 +345,6 @@
                 
                 // Create more hearts when she says yes
                 setInterval(createHearts, 100);
-            });
-            
-            // No button click (if somehow they manage to click it)
-            btnNo.addEventListener('click', function() {
-                mainContainer.classList.add('hidden');
-                responseNo.classList.remove('hidden');
-                responseNo.classList.add('response');
-            });
-            
-            // Try again button
-            tryAgainBtn.addEventListener('click', function() {
-                responseNo.classList.add('hidden');
-                mainContainer.classList.remove('hidden');
-                noClicks = 0;
-                btnNo.style.left = '';
-                btnNo.style.top = '';
-                
-                // Reset the message
-                const pElements = mainContainer.querySelectorAll('p');
-                pElements[pElements.length - 1].textContent = 'Maukah kamu menjadi pacarku?';
             });
         });
     </script>
