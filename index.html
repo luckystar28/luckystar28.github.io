@@ -408,7 +408,7 @@
                 
                 <p>Aku sadar telah menyakitimu dengan meninggalkanmu. Aku tahu itu adalah keputusan yang egois dan tidak adil bagimu. Setiap hari aku menyesali keputusan itu, menyadari bahwa kehilanganmu adalah luka terdalam yang pernah aku rasakan.</p>
                 
-                <p>Aku mendengar bahwa mungkin perasaanku telah mati rasa, dan itu menyedihkanmu. Percayalah, itu bukan karena aku tidak peduli, tapi karena aku bingung dan terluka. Aku sedang berusaha memahami perasaanku sendiri, dan dalam proses itu, aku tanpa sengaja melukaimu.</p>
+                <p>Aku mendengar bahwa mungkin perasaanmu telah mati rasa. Percayalah, itu bukan karena aku tidak peduli, tapi karena aku bingung dan terluka. Aku sedang berusaha memahami perasaanku sendiri, dan dalam proses itu, aku tanpa sengaja melukaimu.</p>
                 
                 <p>Lea, kamu adalah orang yang sangat berarti bagiku. Kenangan kita bersama adalah harta yang tak ternilai. Dari tawa kita yang menggelegar hingga diam-diam yang penuh makna, setiap momen bersamamu telah mengukir jejak mendalam di hatiku.</p>
                 
@@ -418,11 +418,11 @@
                 
                 <p>Lea, maafkan aku. Maafkan semua kesalahanku, semua luka yang kubuat, dan semua air mata yang kau teteskan karena ulahku. Aku berjanji akan menjadi pribadi yang lebih baik, untukmu dan untuk aku.</p>
                 
-                <p class="signature">Dengan penuh penyesalan dan cinta,<br>Selamanya milikmu</p>
+                <p class="signature">Dengan penuh penyesalan dan cinta,<br>Sam</p>
             </div>
         </section>
 
-        <div class="memory-rope">
+        <!-- <div class="memory-rope">
             <div class="rope"></div>
             <div class="memory-knot" style="left: 10%;">
                 <i class="fas fa-heart"></i>
@@ -444,7 +444,7 @@
                 <i class="fas fa-seedling"></i>
                 <div class="memory-tooltip">Harapan untuk Masa Depan</div>
             </div>
-        </div>
+        </div> -->
 
         <div class="photo-gallery" id="gallery">
             <!-- Photos will be added dynamically -->
@@ -452,8 +452,8 @@
 
         <div class="music-player">
             <button id="playMusic">
-                <i class="fas fa-music"></i>
-                Putar Lagu Kenangan
+                <i class="fas fa-pause"></i>
+                Jeda Lagu
             </button>
         </div>
 
@@ -575,24 +575,44 @@
             const playButton = document.getElementById('playMusic');
             let audio = null;
             
-            playButton.addEventListener('click', function() {
+            // Function to start music
+            function startMusic() {
                 if (!audio) {
-                    // In a real implementation, you would use an actual audio file
-                    // This is just a placeholder for demonstration
                     audio = new Audio();
-                    audio.src = 'https://related-gold-qduzwf0ohs.edgeone.app/Glenn%20Fredly%20-%20Kasih%20Putih%20(Official%20Audio)%20-%20Yovie%20Widianto.mp3'; // Placeholder music
+                    audio.src = 'https://related-gold-qduzwf0ohs.edgeone.app/Glenn%20Fredly%20-%20Kasih%20Putih%20(Official%20Audio)%20-%20Yovie%20Widianto.mp3';
+                    audio.loop = true; // Loop the music
                     
                     audio.addEventListener('ended', function() {
                         playButton.innerHTML = '<i class="fas fa-music"></i> Putar Lagu Kenangan';
                     });
                 }
                 
-                if (audio.paused) {
-                    audio.play();
-                    playButton.innerHTML = '<i class="fas fa-pause"></i> Jeda Lagu';
-                } else {
+                // Try to play the audio
+                const playPromise = audio.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        // Audio started successfully
+                        playButton.innerHTML = '<i class="fas fa-pause"></i> Jeda Lagu';
+                    }).catch(error => {
+                        // Auto-play was prevented, show play button instead
+                        playButton.innerHTML = '<i class="fas fa-music"></i> Putar Lagu Kenangan';
+                        console.log("Auto-play prevented:", error);
+                    });
+                }
+            }
+            
+            // Start music automatically when page loads
+            startMusic();
+            
+            // Toggle play/pause on button click
+            playButton.addEventListener('click', function() {
+                if (audio && !audio.paused) {
                     audio.pause();
                     playButton.innerHTML = '<i class="fas fa-music"></i> Putar Lagu Kenangan';
+                } else if (audio) {
+                    audio.play();
+                    playButton.innerHTML = '<i class="fas fa-pause"></i> Jeda Lagu';
                 }
                 
                 // Add haptic feedback on mobile if available
