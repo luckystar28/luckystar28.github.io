@@ -1,644 +1,155 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untuk Lea, dengan Cinta</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* CSS Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-color: #9c72cb;
-            --secondary-color: #ff9eb5;
-            --accent-color: #ff6b6b;
-            --light-color: #f8f4ff;
-            --dark-color: #4a4453;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--dark-color);
-            background: linear-gradient(135deg, #f5f7fa 0%, #e3e8f5 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Header Styles */
-        header {
-            text-align: center;
-            padding: 30px 0;
-            position: relative;
-        }
-
-        .header-content {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        h1 {
-            font-size: 2.2rem;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            font-weight: 400;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .subtitle {
-            font-size: 1.1rem;
-            color: #888;
-            font-style: italic;
-        }
-
-        /* Letter Styles */
-        .letter-container {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            margin: 25px 0;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            position: relative;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s ease;
-            border-left: 5px solid var(--secondary-color);
-        }
-
-        .letter-container.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .letter-content {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            text-align: justify;
-        }
-
-        .letter-content p {
-            margin-bottom: 18px;
-        }
-
-        .signature {
-            text-align: right;
-            margin-top: 30px;
-            font-style: italic;
-            color: var(--primary-color);
-            font-weight: 500;
-        }
-
-        /* Photo Gallery */
-        .photo-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 12px;
-            margin: 35px 0;
-        }
-
-        .photo-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-            height: 180px;
-            opacity: 0;
-            transform: scale(0.9);
-            transition: all 0.5s ease;
-        }
-
-        .photo-item.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .photo-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .photo-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .photo-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            color: white;
-            padding: 10px;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-            font-size: 0.85rem;
-        }
-
-        .photo-item:hover .photo-caption {
-            transform: translateY(0);
-        }
-
-        /* Memory Rope */
-        .memory-rope {
-            position: relative;
-            height: 70px;
-            margin: 40px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .rope {
-            position: absolute;
-            width: 85%;
-            height: 3px;
-            background: linear-gradient(to right, transparent, var(--primary-color), transparent);
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .memory-knot {
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            background: var(--accent-color);
-            border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2;
-            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.8);
-        }
-
-        .memory-knot:hover {
-            transform: translateY(-50%) scale(1.4);
-            box-shadow: 0 0 15px rgba(255, 107, 107, 0.7);
-        }
-
-        .memory-knot i {
-            color: white;
-            font-size: 0.7rem;
-        }
-
-        .memory-tooltip {
-            position: absolute;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 8px;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            white-space: nowrap;
-            font-size: 0.85rem;
-        }
-
-        .memory-knot:hover .memory-tooltip {
-            opacity: 1;
-        }
-
-        /* Heart Animation */
-        .heart-container {
-            text-align: center;
-            margin: 40px 0;
-        }
-
-        .heart {
-            display: inline-block;
-            font-size: 2.8rem;
-            color: var(--accent-color);
-            animation: heartbeat 1.5s infinite;
-            cursor: pointer;
-            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
-        }
-
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            5% { transform: scale(1.1); }
-            10% { transform: scale(1); }
-            15% { transform: scale(1.1); }
-            20% { transform: scale(1); }
-            100% { transform: scale(1); }
-        }
-
-        /* Music Player */
-        .music-player {
-            text-align: center;
-            margin: 30px 0;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .music-player button {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin: 0 auto;
-            box-shadow: 0 4px 10px rgba(156, 114, 203, 0.3);
-        }
-
-        .music-player button:hover {
-            background: var(--accent-color);
-            transform: translateY(-3px);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #888;
-            font-size: 0.9rem;
-            margin-top: 30px;
-        }
-
-        /* Floating Elements */
-        .floating-heart {
-            position: fixed;
-            font-size: 20px;
-            color: var(--accent-color);
-            pointer-events: none;
-            z-index: 1000;
-            opacity: 0;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .header-content {
-                padding: 20px;
-            }
-            
-            .letter-container {
-                padding: 20px;
-            }
-            
-            .letter-content {
-                font-size: 1rem;
-                text-align: left;
-            }
-            
-            .photo-gallery {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-                gap: 10px;
-            }
-            
-            .photo-item {
-                height: 160px;
-            }
-            
-            .memory-rope {
-                height: 60px;
-            }
-            
-            .memory-knot {
-                width: 16px;
-                height: 16px;
-            }
-            
-            .heart {
-                font-size: 2.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.6rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-            }
-            
-            .photo-gallery {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .photo-item {
-                height: 150px;
-            }
-            
-            .memory-rope {
-                height: 50px;
-            }
-            
-            .rope {
-                width: 90%;
-            }
-            
-            .memory-knot {
-                width: 14px;
-                height: 14px;
-            }
-            
-            .memory-tooltip {
-                font-size: 0.75rem;
-                padding: 6px 10px;
-            }
-        }
-
-        /* Touch device optimizations */
-        @media (hover: none) {
-            .photo-caption {
-                transform: translateY(0);
-                background: rgba(0, 0, 0, 0.6);
-            }
-            
-            .memory-knot:active {
-                transform: translateY(-50%) scale(1.4);
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown Event Fish It</title>
+<style>
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background: linear-gradient(180deg, #1a1f2b, #0e1118);
+    color: #f0f3fa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #a5b4fc;
+    margin-bottom: 2rem;
+  }
+  .countdown {
+    display: flex;
+    gap: 20px;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .time-box {
+    background: #1f2937;
+    padding: 20px 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  }
+  .time-box span {
+    display: block;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #9ca3af;
+  }
+  #joinButton {
+    display: none;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  #joinButton:hover {
+    background: #2563eb;
+  }
+  footer {
+    position: absolute;
+    bottom: 10px;
+    font-size: 0.9rem;
+    color: #6b7280;
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="header-content">
-                <h1>Untuk Lea</h1>
-                <p class="subtitle">Sebuah permintaan maaf dari hati yang menyesal</p>
-            </div>
-        </header>
 
-        <section class="letter-container" id="letter">
-            <div class="letter-content">
-                <p>Hi lea,</p>
-                
-                <p>Aku menulis ini dengan hati yang berat, penuh penyesalan atas semua kesalahan yang telah aku perbuat. Aku tahu kata-kata mungkin takkan cukup untuk mengungkapkan betapa dalamnya penyesalanku, tapi izinkan aku mencoba.</p>
-                
-                <p>Aku sadar telah menyakitimu dengan meninggalkanmu. Aku tahu itu adalah keputusan yang egois dan tidak adil bagimu. Setiap hari aku menyesali keputusan itu, menyadari bahwa kehilanganmu adalah luka terdalam yang pernah aku rasakan.</p>
-                
-                <p>Aku mendengar bahwa mungkin perasaanmu telah mati rasa. Percayalah, itu bukan karena aku tidak peduli, tapi karena aku bingung dan terluka. Aku sedang berusaha memahami perasaanku sendiri, dan dalam proses itu, aku tanpa sengaja melukaimu.</p>
-                
-                <p>Lea, kamu adalah orang yang sangat berarti bagiku. Kenangan kita bersama adalah harta yang tak ternilai. Dari tawa kita yang menggelegar hingga diam-diam yang penuh makna, setiap momen bersamamu telah mengukir jejak mendalam di hatiku.</p>
-                
-                <p>Aku berharap suatu hari nanti kita bisa memperbaiki tali yang telah rusak ini. Tali demi tali, aku ingin membangun kembali kepercayaan dan cinta yang pernah kita miliki. Aku tahu butuh waktu dan kesabaran, dan aku bersedia menunggu.</p>
-                
-                <p>Di bawah ini adalah beberapa kenangan indah kita yang selalu menghangatkan hatiku di saat-saat tersulit. Mereka mengingatkanku pada betapa berharganya kita bersama.</p>
-                
-                <p>Lea, maafkan aku. Maafkan semua kesalahanku, semua luka yang kubuat, dan semua air mata yang kau teteskan karena ulahku. Aku berjanji akan menjadi pribadi yang lebih baik, untukmu dan untuk aku.</p>
-                
-                <p class="signature">Dengan penuh penyesalan dan cinta,<br>Sam</p>
-            </div>
-        </section>
+  <h1>Countdown Event Roblox: Fish It</h1>
+  <h2>Event dimulai pada 10 November 2025, pukul 06:30 WIB</h2>
 
-        <!-- <div class="memory-rope">
-            <div class="rope"></div>
-            <div class="memory-knot" style="left: 10%;">
-                <i class="fas fa-heart"></i>
-                <div class="memory-tooltip">Pertemuan Pertama</div>
-            </div>
-            <div class="memory-knot" style="left: 30%;">
-                <i class="fas fa-star"></i>
-                <div class="memory-tooltip">Liburan Bersama</div>
-            </div>
-            <div class="memory-knot" style="left: 50%;">
-                <i class="fas fa-birthday-cake"></i>
-                <div class="memory-tooltip">Ulang Tahunmu</div>
-            </div>
-            <div class="memory-knot" style="left: 70%;">
-                <i class="fas fa-moon"></i>
-                <div class="memory-tooltip">Malam Terindah</div>
-            </div>
-            <div class="memory-knot" style="left: 90%;">
-                <i class="fas fa-seedling"></i>
-                <div class="memory-tooltip">Harapan untuk Masa Depan</div>
-            </div>
-        </div> -->
+  <div class="countdown" id="countdown">
+    <div class="time-box"><div id="days">0</div><span>Hari</span></div>
+    <div class="time-box"><div id="hours">0</div><span>Jam</span></div>
+    <div class="time-box"><div id="minutes">0</div><span>Menit</span></div>
+    <div class="time-box"><div id="seconds">0</div><span>Detik</span></div>
+  </div>
 
-        <div class="photo-gallery" id="gallery">
-            <!-- Photos will be added dynamically -->
-        </div>
+  <button id="joinButton" onclick="window.open('https://www.roblox.com/games/121864768012064/Fish-It','_blank')">
+    🎣 Join Game Fish It
+  </button>
 
-        <div class="music-player">
-            <button id="playMusic">
-                <i class="fas fa-pause"></i>
-                Jeda Lagu
-            </button>
-        </div>
+  <footer>Made for Roblox Event Fish It © 2025</footer>
 
-        <div class="heart-container">
-            <div class="heart" id="heart">❤️</div>
-        </div>
-    </div>
+<script>
+  // --- SETUP WAKTU EVENT (WIB = UTC+7)
+  const eventDate = new Date("2025-11-10T06:30:00+07:00").getTime();
+  const webhookURL = "https://discord.com/api/webhooks/1414663139223404594/D2PsrLHr-L3ne-5NOd2tmafqBJlIknF5TPzUPlTAw6Enx7iC2BmBLjpPufMfWX5kVXgQ"; // ganti dengan webhook kamu
+  let notified = false;
 
-    <footer>
-        <p>Dibuat dengan penuh cinta dan penyesalan | Untuk Lea</p>
-    </footer>
+  const daysEl = document.getElementById("days");
+  const hoursEl = document.getElementById("hours");
+  const minutesEl = document.getElementById("minutes");
+  const secondsEl = document.getElementById("seconds");
+  const joinButton = document.getElementById("joinButton");
 
-    <script>
-        // Sample photo data (replace with actual photos)
-        const photos = [
-            { src: 'https://i.ibb.co.com/mVG32Rf7/1026352731-94835233942806-1759730327065.png', caption: 'Hayo gunung apa ini' },
-            { src: 'https://i.ibb.co.com/JRm3DZvS/1026352731-94835233942806-1759730148209.png', caption: 'Yap betul gunung pendaunan, lucu kan kita. Kamu cantik disini' },
-            { src: 'https://i.ibb.co.com/p6YLrW8C/1026352731-73713492077187-1759727565914.png', caption: 'Ini dimana kamu pat pat aku, lucunya kamu ya' },
-            { src: 'https://i.ibb.co.com/zLKYZRs/1026352731-73713492077187-1759727559724.png', caption: 'Foto pat pat kedua kali' },
-            { src: 'https://i.ibb.co.com/0jk6PSzN/1026352731-122165169258616-1759310486832.png', caption: 'Aku jujur kangen dengan kamu, tapi kamu akan bilang "heleh"' },
-            { src: 'https://i.ibb.co.com/39zfzBPF/1026352731-138459243970216-1758462460029.png', caption: 'Ini gunung yang kamu jadi admin pertama kali, kamu cerita ke aku kalau capek banget' }
-        ];
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const diff = eventDate - now;
 
-        // Initialize the photo gallery
-        function initGallery() {
-            const gallery = document.getElementById('gallery');
-            
-            photos.forEach(photo => {
-                const photoItem = document.createElement('div');
-                photoItem.className = 'photo-item';
-                
-                const img = document.createElement('img');
-                img.src = photo.src;
-                img.alt = photo.caption;
-                img.loading = 'lazy'; // Optimize for mobile
-                
-                const caption = document.createElement('div');
-                caption.className = 'photo-caption';
-                caption.textContent = photo.caption;
-                
-                photoItem.appendChild(img);
-                photoItem.appendChild(caption);
-                gallery.appendChild(photoItem);
-            });
-        }
+    if (diff <= 0) {
+      daysEl.textContent = 0;
+      hoursEl.textContent = 0;
+      minutesEl.textContent = 0;
+      secondsEl.textContent = 0;
+      document.getElementById("countdown").textContent = "🎉 Event sudah dimulai!";
+      joinButton.style.display = "inline-block";
 
-        // Scroll animation
-        function checkVisibility() {
-            const letter = document.getElementById('letter');
-            const photoItems = document.querySelectorAll('.photo-item');
-            
-            const letterPosition = letter.getBoundingClientRect().top;
-            const screenPosition = window.innerHeight / 1.3;
-            
-            if (letterPosition < screenPosition) {
-                letter.classList.add('visible');
-            }
-            
-            photoItems.forEach((item, index) => {
-                const itemPosition = item.getBoundingClientRect().top;
-                
-                if (itemPosition < screenPosition) {
-                    // Stagger the animation
-                    setTimeout(() => {
-                        item.classList.add('visible');
-                    }, index * 200);
-                }
-            });
-        }
+      if (!notified) {
+        sendDiscordNotification();
+        notified = true;
+      }
+      clearInterval(timer);
+      return;
+    }
 
-        // Heart click effect
-        function setupHeartEffect() {
-            const heart = document.getElementById('heart');
-            
-            heart.addEventListener('click', function() {
-                // Create floating hearts
-                for (let i = 0; i < 12; i++) {
-                    createFloatingHeart();
-                }
-                
-                // Add haptic feedback on mobile if available
-                if (navigator.vibrate) {
-                    navigator.vibrate(50);
-                }
-            });
-        }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-        function createFloatingHeart() {
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤️';
-            heart.className = 'floating-heart';
-            heart.style.left = Math.random() * window.innerWidth + 'px';
-            heart.style.top = window.innerHeight + 'px';
-            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-            heart.style.opacity = '1';
-            
-            document.body.appendChild(heart);
-            
-            // Animate the heart
-            const animationDuration = Math.random() * 3 + 2;
-            heart.style.transition = `all ${animationDuration}s ease-out`;
-            
-            setTimeout(() => {
-                heart.style.top = '-50px';
-                heart.style.opacity = '0';
-                heart.style.transform = `translateX(${Math.random() * 100 - 50}px)`;
-            }, 10);
-            
-            // Remove the heart after animation
-            setTimeout(() => {
-                if (document.body.contains(heart)) {
-                    document.body.removeChild(heart);
-                }
-            }, animationDuration * 1000);
-        }
+    daysEl.textContent = days;
+    hoursEl.textContent = hours.toString().padStart(2, "0");
+    minutesEl.textContent = minutes.toString().padStart(2, "0");
+    secondsEl.textContent = seconds.toString().padStart(2, "0");
+  }
 
-        // Music player functionality
-        function setupMusicPlayer() {
-            const playButton = document.getElementById('playMusic');
-            let audio = null;
-            
-            // Function to start music
-            function startMusic() {
-                if (!audio) {
-                    audio = new Audio();
-                    audio.src = 'https://related-gold-qduzwf0ohs.edgeone.app/Glenn%20Fredly%20-%20Kasih%20Putih%20(Official%20Audio)%20-%20Yovie%20Widianto.mp3';
-                    audio.loop = true; // Loop the music
-                    
-                    audio.addEventListener('ended', function() {
-                        playButton.innerHTML = '<i class="fas fa-music"></i> Putar Lagu Kenangan';
-                    });
-                }
-                
-                // Try to play the audio
-                const playPromise = audio.play();
-                
-                if (playPromise !== undefined) {
-                    playPromise.then(_ => {
-                        // Audio started successfully
-                        playButton.innerHTML = '<i class="fas fa-pause"></i> Jeda Lagu';
-                    }).catch(error => {
-                        // Auto-play was prevented, show play button instead
-                        playButton.innerHTML = '<i class="fas fa-music"></i> Putar Lagu Kenangan';
-                        console.log("Auto-play prevented:", error);
-                    });
-                }
-            }
-            
-            // Start music automatically when page loads
-            startMusic();
-            
-            // Toggle play/pause on button click
-            playButton.addEventListener('click', function() {
-                if (audio && !audio.paused) {
-                    audio.pause();
-                    playButton.innerHTML = '<i class="fas fa-music"></i> Putar Lagu Kenangan';
-                } else if (audio) {
-                    audio.play();
-                    playButton.innerHTML = '<i class="fas fa-pause"></i> Jeda Lagu';
-                }
-                
-                // Add haptic feedback on mobile if available
-                if (navigator.vibrate) {
-                    navigator.vibrate(30);
-                }
-            });
-        }
+  function sendDiscordNotification() {
+    const payload = {
+      content: `🎉 **Event Roblox Fish It sudah dimulai!**\nLangsung join di sini 👉 https://www.roblox.com/games/121864768012064/Fish-It @everyone`
+    };
 
-        // Initialize everything when the page loads
-        window.addEventListener('load', function() {
-            initGallery();
-            setupHeartEffect();
-            setupMusicPlayer();
-            
-            // Initial check for elements in view
-            checkVisibility();
-            
-            // Check for elements in view on scroll
-            window.addEventListener('scroll', checkVisibility);
-            
-            // Optimize for touch devices
-            if ('ontouchstart' in window) {
-                document.body.classList.add('touch-device');
-            }
-        });
-    </script>
+    fetch(webhookURL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(payload)
+    })
+    .then(res => {
+      if (res.ok) console.log("Notifikasi Discord terkirim!");
+      else console.error("Gagal kirim notifikasi Discord:", res.status);
+    })
+    .catch(err => console.error("Error webhook:", err));
+  }
+
+  const timer = setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>
+
 </body>
 </html>
