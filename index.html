@@ -15,57 +15,75 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    overflow: hidden;
+    text-align: center;
+    padding: 0 20px;
   }
   h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 0.5rem;
   }
   h2 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 400;
     color: #a5b4fc;
     margin-bottom: 2rem;
   }
   .countdown {
     display: flex;
-    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
     font-size: 2rem;
     font-weight: 600;
     margin-bottom: 2rem;
   }
   .time-box {
     background: #1f2937;
-    padding: 20px 30px;
+    padding: 20px 28px;
     border-radius: 12px;
     text-align: center;
+    min-width: 80px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.5);
   }
   .time-box span {
     display: block;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 400;
     color: #9ca3af;
   }
-  #joinButton {
-    display: none;
-    background: #3b82f6;
-    color: white;
+  button {
     border: none;
     padding: 14px 28px;
     border-radius: 10px;
     font-size: 1rem;
     cursor: pointer;
     transition: 0.3s;
+    color: white;
   }
-  #joinButton:hover {
-    background: #2563eb;
+  #joinButton {
+    display: none;
+    background: #3b82f6;
   }
+  #joinButton:hover { background: #2563eb; }
+
   footer {
     position: absolute;
     bottom: 10px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: #6b7280;
+  }
+
+  /* RESPONSIVE ADJUSTMENTS */
+  @media (max-width: 768px) {
+    h1 { font-size: 1.5rem; }
+    .countdown { font-size: 1.5rem; gap: 10px; }
+    .time-box { padding: 15px 20px; min-width: 70px; }
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 1.3rem; }
+    h2 { font-size: 0.9rem; }
+    .countdown { font-size: 1.2rem; gap: 8px; }
+    .time-box { padding: 12px 15px; min-width: 60px; }
   }
 </style>
 </head>
@@ -85,12 +103,12 @@
     🎣 Join Game Fish It
   </button>
 
-  <footer>Made for Roblox Event Fish It © 2025</footer>
+  <footer>Made for Roblox Event Fish It | Sam make with ❤ © 2025</footer>
 
 <script>
-  // --- SETUP WAKTU EVENT (WIB = UTC+7)
+  // === KONFIGURASI ===
   const eventDate = new Date("2025-11-10T06:30:00+07:00").getTime();
-  const webhookURL = "https://discord.com/api/webhooks/1414663139223404594/D2PsrLHr-L3ne-5NOd2tmafqBJlIknF5TPzUPlTAw6Enx7iC2BmBLjpPufMfWX5kVXgQ"; // ganti dengan webhook kamu
+  const webhookURL = "https://discord.com/api/webhooks/1414663139223404594/D2PsrLHr-L3ne-5NOd2tmafqBJlIknF5TPzUPlTAw6Enx7iC2BmBLjpPufMfWX5kVXgQ"; // Ganti dengan webhook kamu
   let notified = false;
 
   const daysEl = document.getElementById("days");
@@ -104,13 +122,8 @@
     const diff = eventDate - now;
 
     if (diff <= 0) {
-      daysEl.textContent = 0;
-      hoursEl.textContent = 0;
-      minutesEl.textContent = 0;
-      secondsEl.textContent = 0;
       document.getElementById("countdown").textContent = "🎉 Event sudah dimulai!";
       joinButton.style.display = "inline-block";
-
       if (!notified) {
         sendDiscordNotification();
         notified = true;
@@ -132,19 +145,16 @@
 
   function sendDiscordNotification() {
     const payload = {
-      content: `🎉 **Event Roblox Fish It sudah dimulai!**\nLangsung join di sini 👉 https://www.roblox.com/games/121864768012064/Fish-It @everyone`
+      content: `🎉 **Event Roblox Fish It sudah dimulai!**\nLangsung join di sini 👉 https://www.roblox.com/games/121864768012064/Fish-It`
     };
-
     fetch(webhookURL, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(payload)
-    })
-    .then(res => {
+    }).then(res => {
       if (res.ok) console.log("Notifikasi Discord terkirim!");
       else console.error("Gagal kirim notifikasi Discord:", res.status);
-    })
-    .catch(err => console.error("Error webhook:", err));
+    }).catch(err => console.error("Error webhook:", err));
   }
 
   const timer = setInterval(updateCountdown, 1000);
