@@ -1,165 +1,56 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Countdown Event Fish It</title>
-<style>
-  body {
-    margin: 0;
-    font-family: "Segoe UI", Roboto, Arial, sans-serif;
-    background: linear-gradient(180deg, #1a1f2b, #0e1118);
-    color: #f0f3fa;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    text-align: center;
-    padding: 0 20px;
-  }
-  h1 {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-  }
-  h2 {
-    font-size: 1rem;
-    font-weight: 400;
-    color: #a5b4fc;
-    margin-bottom: 2rem;
-  }
-  .countdown {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 2rem;
-  }
-  .time-box {
-    background: #1f2937;
-    padding: 20px 28px;
-    border-radius: 12px;
-    text-align: center;
-    min-width: 80px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
-  }
-  .time-box span {
-    display: block;
-    font-size: 0.9rem;
-    font-weight: 400;
-    color: #9ca3af;
-  }
-  button {
-    border: none;
-    padding: 14px 28px;
-    border-radius: 10px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: 0.3s;
-    color: white;
-  }
-  #joinButton {
-    display: none;
-    background: #3b82f6;
-  }
-  #joinButton:hover { background: #2563eb; }
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+  maximum-scale=5" />
 
-  footer {
-    position: absolute;
-    bottom: 10px;
-    font-size: 0.8rem;
-    color: #6b7280;
-  }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  /* RESPONSIVE ADJUSTMENTS */
-  @media (max-width: 768px) {
-    h1 { font-size: 1.5rem; }
-    .countdown { font-size: 1.5rem; gap: 10px; }
-    .time-box { padding: 15px 20px; min-width: 70px; }
-  }
-  @media (max-width: 480px) {
-    h1 { font-size: 1.3rem; }
-    h2 { font-size: 0.9rem; }
-    .countdown { font-size: 1.2rem; gap: 8px; }
-    .time-box { padding: 12px 15px; min-width: 60px; }
-  }
-</style>
+    <link rel="icon" href="img/devchallenges.png" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://devchallenges.io/" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
+
+    <title>404 NOT FOUND</title>
+
+
 </head>
+
 <body>
+    <div class="title">
 
-  <h1>Countdown Event Roblox: Fish It</h1>
-  <h2>Event dimulai pada 10 November 2025, pukul 06:30 WIB</h2>
+        <center>404 NOT FOUND</center>
 
-  <div class="countdown" id="countdown">
-    <div class="time-box"><div id="days">0</div><span>Hari</span></div>
-    <div class="time-box"><div id="hours">0</div><span>Jam</span></div>
-    <div class="time-box"><div id="minutes">0</div><span>Menit</span></div>
-    <div class="time-box"><div id="seconds">0</div><span>Detik</span></div>
-  </div>
 
-  <button id="joinButton" onclick="window.open('https://www.roblox.com/games/121864768012064/Fish-It','_blank')">
-    🎣 Join Game Fish It
-  </button>
+    </div>
+    <section class="row">
+        <img src="img/Scarecrow.png">
+        <section>
 
-  <footer>Made for Roblox Event Fish It | Sam make with ❤ © 2025</footer>
+            <div class="main-title">
+                Don't know where you are ?
 
-<script>
-  // === KONFIGURASI ===
-  const eventDate = new Date("2025-11-10T06:30:00+07:00").getTime();
-  const webhookURL = "https://discord.com/api/webhooks/1414663139223404594/D2PsrLHr-L3ne-5NOd2tmafqBJlIknF5TPzUPlTAw6Enx7iC2BmBLjpPufMfWX5kVXgQ"; // Ganti dengan webhook kamu
-  let notified = false;
+            </div>
+            <p>
+                we really have no idea either...
 
-  const daysEl = document.getElementById("days");
-  const hoursEl = document.getElementById("hours");
-  const minutesEl = document.getElementById("minutes");
-  const secondsEl = document.getElementById("seconds");
-  const joinButton = document.getElementById("joinButton");
-
-  function updateCountdown() {
-    const now = new Date().getTime();
-    const diff = eventDate - now;
-
-    if (diff <= 0) {
-      document.getElementById("countdown").textContent = "🎉 Event sudah dimulai!";
-      joinButton.style.display = "inline-block";
-      if (!notified) {
-        sendDiscordNotification();
-        notified = true;
-      }
-      clearInterval(timer);
-      return;
-    }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-    daysEl.textContent = days;
-    hoursEl.textContent = hours.toString().padStart(2, "0");
-    minutesEl.textContent = minutes.toString().padStart(2, "0");
-    secondsEl.textContent = seconds.toString().padStart(2, "0");
-  }
-
-  function sendDiscordNotification() {
-    const payload = {
-      content: `🎉 **Event Roblox Fish It sudah dimulai!**\nLangsung join di sini 👉 https://www.roblox.com/games/121864768012064/Fish-It @everyone`
-    };
-    fetch(webhookURL, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(payload)
-    }).then(res => {
-      if (res.ok) console.log("Notifikasi Discord terkirim!");
-      else console.error("Gagal kirim notifikasi Discord:", res.status);
-    }).catch(err => console.error("Error webhook:", err));
-  }
-
-  const timer = setInterval(updateCountdown, 1000);
-  updateCountdown();
-</script>
-
+            </p>
+            <a href="index.html">
+                <button class="btn">
+          Back To HomePage
+        </button>
+            </a>
+        </section>
+    </section>
+    <div class="copyright">
+        Copyright by Sam
+        <!-- <a target="_blank" href="https://github.com/Ranimbenkerri"><i class="fa fa-github"></i> Ranim benkerri</a> - devChallenges.io -->
+    </div>
 </body>
+
 </html>
