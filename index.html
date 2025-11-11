@@ -1,56 +1,592 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1,
-  maximum-scale=5" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shinobi Lounge</title>
+  <link rel="icon" href="https://i.ibb.co.com/4g20rTLy/LOGO-SHINOBI-LOUNGE-04.png" type="image/png">
+  <style>
+    /* ======== GLOBAL STYLE ======== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    body {
+      background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+      color: white;
+      overflow-x: hidden;
+    }
 
-    <link rel="icon" href="img/devchallenges.png" />
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px;
+      background: rgba(0,0,0,0.6);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-    <link rel="shortcut icon" type="image/x-icon" href="https://devchallenges.io/" />
+    header img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #e63946;
+    }
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
+    header h1 {
+      font-size: 1.8rem;
+      background: linear-gradient(90deg, #e63946, #f1faee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+    }
 
-    <title>404 NOT FOUND</title>
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: url('https://i.ibb.co.com/4g20rTLy/LOGO-SHINOBI-LOUNGE-04.png') no-repeat center/120px;
+      background-blend-mode: overlay;
+    }
 
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
 
+    .hero p {
+      color: #ccc;
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    h3 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1.8rem;
+      border-bottom: 2px solid #e63946;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    .rank-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    /* ======== MAINTENANCE STYLES ======== */
+    .maintenance-container {
+      text-align: center;
+      padding: 40px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 193, 7, 0.5);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .maintenance-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      color: #ffc107;
+    }
+
+    .maintenance-title {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #ffc107;
+    }
+
+    .maintenance-text {
+      color: #ccc;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 10px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 5px;
+      margin: 20px 0;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 65%;
+      background: linear-gradient(90deg, #ffc107, #ff9800);
+      border-radius: 5px;
+      animation: progress-pulse 2s infinite;
+    }
+
+    .countdown {
+      font-size: 1.2rem;
+      margin: 20px 0;
+      color: #ffc107;
+    }
+
+    /* ======== MEMBER CARD ======== */
+    .member-card {
+      position: relative;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 15px;
+      width: 200px;
+      height: 220px;
+      overflow: hidden;
+      transition: 0.3s ease;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      cursor: pointer;
+    }
+
+    .member-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(230,57,70,0.4);
+    }
+
+    .profile-pic {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.9);
+      transition: 0.4s ease;
+    }
+
+    .member-card:hover .profile-pic {
+      filter: brightness(0.5);
+      transform: scale(1.05);
+    }
+
+    .rank {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+      border-radius: 8px;
+      display: inline-block;
+      padding: 4px 8px;
+      font-size: 0.8rem;
+    }
+
+    .hokage { background: linear-gradient(90deg, #ff4500, #ffa500); color: white; }
+    .anbu { background: linear-gradient(90deg, #6a0dad, #b5179e); color: white; }
+    .booster { background: linear-gradient(90deg, #0077b6, #00b4d8); color: white; }
+    .streamer { background: linear-gradient(90deg, #ff0080, #ff8fa3); color: white; }
+    .perekrut { background: linear-gradient(90deg, #00b894, #55efc4); color: black; }
+    .member { background: linear-gradient(90deg, #444, #666); color: white; }
+
+    .name-overlay {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      text-align: center;
+      padding: 8px;
+      font-size: 1rem;
+      opacity: 0;
+      transform: translateY(100%);
+      transition: 0.4s ease;
+    }
+
+    .member-card:hover .name-overlay,
+    .member-card.touch .name-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.9rem;
+      color: #aaa;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .member-card {
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    /* ======== ROBLOX STATUS STYLES ======== */
+    .game-status {
+      background: rgba(0,0,0,0.3);
+      border-radius: 15px;
+      padding: 20px;
+      margin: 30px auto;
+      max-width: 600px;
+      text-align: center;
+      border: 1px solid #00b4d8;
+    }
+
+    .game-status-title {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #00b4d8;
+    }
+
+    .game-status-info {
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    .game-status-btn {
+      background: linear-gradient(90deg, #00b4d8, #0077b6);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      margin: 5px;
+    }
+
+    .game-status-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(0, 180, 216, 0.5);
+    }
+
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    /* ======== DISCORD MEMBERS STYLES ======== */
+    .discord-members {
+      background: rgba(0,0,0,0.3);
+      border-radius: 15px;
+      padding: 20px;
+      margin: 30px auto;
+      max-width: 600px;
+      text-align: center;
+      border: 1px solid #5865F2;
+    }
+
+    .discord-title {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #5865F2;
+    }
+
+    .discord-members-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .discord-member {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.1);
+      padding: 8px 15px;
+      border-radius: 20px;
+      width: fit-content;
+      transition: transform 0.2s;
+    }
+
+    .discord-member:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.15);
+    }
+
+    .discord-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+
+    .discord-status {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-left: 5px;
+    }
+
+    .status-online { background-color: #43b581; }
+    .status-idle { background-color: #faa61a; }
+    .status-dnd { background-color: #f04747; }
+    .status-offline { background-color: #747f8d; }
+
+    .discord-activity {
+      font-size: 0.8rem;
+      color: #aaa;
+      margin-top: 2px;
+    }
+
+    .discord-join-btn {
+      background: linear-gradient(90deg, #5865F2, #7289da);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    .discord-join-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(88, 101, 242, 0.5);
+    }
+
+    .refresh-info {
+      font-size: 0.8rem;
+      color: #aaa;
+      margin-top: 10px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes progress-pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+
+    @media(max-width: 600px) {
+      .member-card {
+        width: 45%;
+        height: 180px;
+      }
+      .name-overlay {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
-    <div class="title">
+  <header>
+    <img src="https://i.ibb.co.com/4g20rTLy/LOGO-SHINOBI-LOUNGE-04.png" alt="Shinobi Lounge Logo">
+    <h1>Shinobi Lounge</h1>
+  </header>
 
-        <center>404 NOT FOUND</center>
+  <section class="hero">
+    <h2>Selamat Datang di Shinobi Lounge</h2>
+    <p>Tempat berkumpulnya para ninja Discord! Di sini, kita berbagi tawa, mabar, dan misi rahasia. Kenali para shinobi kami di bawah ini!</p>
+  </section>
 
-
+  <section>
+    <h3>Jajaran Shinobi</h3>
+    <div class="maintenance-container">
+      <div class="maintenance-icon">🔧</div>
+      <h2 class="maintenance-title">Sedang Dalam Perbaikan</h2>
+      <p class="maintenance-text">
+        Kami sedang melakukan pembaruan pada daftar shinobi untuk memberikan pengalaman yang lebih baik. 
+        Fitur ini akan segera kembali dalam waktu dekat.
+      </p>
+      <div class="progress-container">
+        <div class="progress-bar"></div>
+      </div>
+      <div class="countdown" id="countdown">Estimasi: 2 hari lagi</div>
+      <p class="maintenance-text">
+        Terima kasih atas pengertian dan kesabaran Anda. Tetap pantau perkembangan kami!
+      </p>
     </div>
-    <section class="row">
-        <img src="img/Scarecrow.png">
-        <section>
+    <!--
+    <div class="rank-section" id="member-list"></div>
+    -->
+  </section>
 
-            <div class="main-title">
-                Don't know where you are ?
-
-            </div>
-            <p>
-                we really have no idea either...
-
-            </p>
-            <a href="index.html">
-                <button class="btn">
-          Back To HomePage
-        </button>
-            </a>
-        </section>
-    </section>
-    <div class="copyright">
-        Copyright by Sam
-        <!-- <a target="_blank" href="https://github.com/Ranimbenkerri"><i class="fa fa-github"></i> Ranim benkerri</a> - devChallenges.io -->
+  <!-- Fish It! Game Status Section -->
+  <section class="game-status">
+    <h3 class="game-status-title">Status Fish It! di Roblox</h3>
+    <div class="game-status-info" id="fishit-status">
+      Memeriksa status game Fish It! di Roblox...
     </div>
+    <div>
+      <a href="https://www.roblox.com/games/121864768012064/UPD-Fish-It#!/game-instances" target="_blank" class="game-status-btn">
+        Lihat Server Langsung
+      </a>
+      <button class="game-status-btn" id="refresh-fishit">Refresh Status</button>
+    </div>
+    <p class="refresh-info">Status akan diperbarui otomatis setiap 2 menit</p>
+  </section>
+
+  <!-- Discord Members Section -->
+  <section class="discord-members">
+    <h3 class="discord-title">Member Online di Discord</h3>
+    <div class="game-status-info" id="discord-status">
+      Memeriksa member online di Discord...
+    </div>
+    <div class="discord-members-list" id="discord-members-list">
+      <!-- Members will be loaded here -->
+    </div>
+    <div>
+      <a href="https://discord.gg/BSttvBVQEU" target="_blank" class="discord-join-btn">
+        Bergabung dengan Server
+      </a>
+      <button class="discord-join-btn" id="refresh-discord">Refresh Member</button>
+    </div>
+    <p class="refresh-info">Status akan diperbarui otomatis setiap 1 menit</p>
+  </section>
+
+  <footer>
+    © 2025 Shinobi Lounge • Dibangun dengan ❤️ oleh sam
+  </footer>
+
+  <script>
+    // ======== MAINTENANCE COUNTDOWN ========
+    function updateCountdown() {
+      // Set target date for maintenance completion (2 days from now)
+      const targetDate = new Date();
+      targetDate.setDate(targetDate.getDate() + 2);
+      
+      const now = new Date();
+      const diff = targetDate - now;
+      
+      if (diff > 0) {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        
+        const countdownElement = document.getElementById('countdown');
+        countdownElement.textContent = `Estimasi: ${days} hari ${hours} jam lagi`;
+      } else {
+        document.getElementById('countdown').textContent = "Pemeliharaan hampir selesai!";
+      }
+    }
+    
+    // Update countdown every hour
+    updateCountdown();
+    setInterval(updateCountdown, 3600000);
+
+    // ======== FISH IT STATUS CHECKER ========
+    const fishitStatus = document.getElementById('fishit-status');
+    const refreshFishItBtn = document.getElementById('refresh-fishit');
+    
+    async function checkFishItStatus() {
+      try {
+        fishitStatus.innerHTML = '<span class="loading"></span> Memeriksa status Fish It! di Roblox...';
+        
+        // Simulasi delay request
+        setTimeout(() => {
+          // Generate random player count (5000-15000) - lebih realistis untuk semua server
+          const playerCount = Math.floor(Math.random() * 10000) + 5000;
+          const activeServers = Math.floor(Math.random() * 200) + 50;
+          
+          fishitStatus.innerHTML = `
+            <p>🎮 <strong>Fish It!</strong> sedang aktif dengan ${playerCount.toLocaleString()} pemain online!</p>
+            <p>🛠️ Server aktif: ${activeServers}</p>
+            <p>⚠️ Catatan: Data ini simulasi. Klik tombol di bawah untuk melihat data real-time langsung di Roblox.</p>
+          `;
+        }, 1500);
+      } catch (error) {
+        fishitStatus.innerHTML = `
+          <p>❌ Gagal memeriksa status game. Silakan kunjungi langsung link game untuk info terkini.</p>
+        `;
+      }
+    }
+    
+    // ======== DISCORD MEMBERS CHECKER ========
+    const discordStatus = document.getElementById('discord-status');
+    const discordMembersList = document.getElementById('discord-members-list');
+    const refreshDiscordBtn = document.getElementById('refresh-discord');
+    
+    async function checkDiscordMembers() {
+      try {
+        discordStatus.innerHTML = '<span class="loading"></span> Memeriksa member online di Discord...';
+        
+        // URL widget Discord (ganti dengan server ID yang sesuai)
+        const widgetUrl = 'https://discord.com/api/guilds/1348859145222094888/widget.json';
+        
+        const response = await fetch(widgetUrl);
+        const data = await response.json();
+        
+        if (data.members && data.members.length > 0) {
+          discordStatus.innerHTML = `🟢 Ada ${data.members.length} member online di Discord`;
+          
+          // Clear previous list
+          discordMembersList.innerHTML = '';
+          
+          // Add each member
+          data.members.forEach(member => {
+            const memberDiv = document.createElement('div');
+            memberDiv.classList.add('discord-member');
+            
+            // Use default avatar if none provided
+            const avatarUrl = member.avatar_url || 
+              `https://cdn.discordapp.com/embed/avatars/${member.id % 5}.png`;
+            
+            // Determine status indicator
+            let statusClass = 'status-offline';
+            if (member.status === 'online') statusClass = 'status-online';
+            else if (member.status === 'idle') statusClass = 'status-idle';
+            else if (member.status === 'dnd') statusClass = 'status-dnd';
+            
+            // Get activity if available
+            let activityHtml = '';
+            if (member.game) {
+              activityHtml = `<div class="discord-activity">🎮 ${member.game.name}</div>`;
+            }
+            
+            memberDiv.innerHTML = `
+              <img class="discord-avatar" src="${avatarUrl}" alt="${member.username}">
+              <span>${member.username}</span>
+              <div class="discord-status ${statusClass}"></div>
+              ${activityHtml}
+            `;
+            
+            discordMembersList.appendChild(memberDiv);
+          });
+        } else {
+          discordStatus.innerHTML = '🔴 Tidak ada member online saat ini';
+        }
+      } catch (error) {
+        discordStatus.innerHTML = '❌ Gagal memuat data member Discord';
+        console.error('Error fetching Discord members:', error);
+      }
+    }
+    
+    // ======== REFRESH BUTTONS ========
+    refreshFishItBtn.addEventListener('click', checkFishItStatus);
+    refreshDiscordBtn.addEventListener('click', checkDiscordMembers);
+    
+    // ======== AUTO REFRESH ========
+    // Refresh Fish It status every 2 minutes
+    setInterval(checkFishItStatus, 120000);
+    
+    // Refresh Discord members every 1 minute
+    setInterval(checkDiscordMembers, 60000);
+    
+    // Check both statuses on page load
+    checkFishItStatus();
+    checkDiscordMembers();
+  </script>
 </body>
-
 </html>
