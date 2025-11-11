@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shinobi Lounge</title>
   <link rel="icon" href="https://i.ibb.co.com/4g20rTLy/LOGO-SHINOBI-LOUNGE-04.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* ======== GLOBAL STYLE ======== */
     * {
@@ -14,260 +15,409 @@
       font-family: "Poppins", sans-serif;
     }
 
-    body {
-      background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
-      color: white;
-      overflow-x: hidden;
+    :root {
+      --primary: #e63946;
+      --secondary: #f1faee;
+      --dark: #0d0d0d;
+      --dark-light: #1a1a1a;
+      --accent-blue: #00b4d8;
+      --accent-purple: #5865F2;
+      --accent-gold: #ffc107;
     }
 
+    body {
+      background: linear-gradient(135deg, var(--dark), var(--dark-light));
+      color: white;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(230, 57, 70, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 180, 216, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(88, 101, 242, 0.1) 0%, transparent 50%);
+      z-index: -1;
+    }
+
+    /* ======== HEADER STYLES ======== */
     header {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 15px;
       padding: 20px;
-      background: rgba(0,0,0,0.6);
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+      background: rgba(0,0,0,0.7);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
       position: sticky;
       top: 0;
       z-index: 100;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     header img {
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
-      border: 2px solid #e63946;
+      border: 2px solid var(--primary);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    header img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px var(--primary);
     }
 
     header h1 {
-      font-size: 1.8rem;
-      background: linear-gradient(90deg, #e63946, #f1faee);
+      font-size: 2rem;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(230, 57, 70, 0.3);
     }
 
+    /* ======== HERO SECTION ======== */
     .hero {
       text-align: center;
-      padding: 60px 20px;
-      background: url('https://i.ibb.co.com/4g20rTLy/LOGO-SHINOBI-LOUNGE-04.png') no-repeat center/120px;
-      background-blend-mode: overlay;
+      padding: 80px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.ibb.co.com/4g20rTLy/LOGO-SHINOBI-LOUNGE-04.png') no-repeat center/150px;
+      opacity: 0.1;
+      z-index: -1;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .hero h2 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
+      font-size: 3rem;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      animation: titleGlow 3s infinite alternate;
     }
 
     .hero p {
       color: #ccc;
-      font-size: 1rem;
+      font-size: 1.2rem;
       max-width: 600px;
       margin: 0 auto;
+      line-height: 1.6;
     }
 
+    .hero-badges {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .hero-badge {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .hero-badge:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+    }
+
+    /* ======== SECTIONS ======== */
     section {
-      padding: 40px 20px;
-      max-width: 1000px;
+      padding: 60px 20px;
+      max-width: 1200px;
       margin: 0 auto;
     }
 
-    h3 {
+    .section-title {
       text-align: center;
-      margin-bottom: 30px;
-      font-size: 1.8rem;
-      border-bottom: 2px solid #e63946;
+      margin-bottom: 40px;
+      font-size: 2.2rem;
+      position: relative;
       display: inline-block;
-      padding-bottom: 5px;
+      padding-bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
-    .rank-section {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      border-radius: 3px;
     }
 
     /* ======== MAINTENANCE STYLES ======== */
     .maintenance-container {
       text-align: center;
       padding: 40px;
-      background: rgba(0,0,0,0.3);
-      border-radius: 15px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 20px;
       border: 1px solid rgba(255, 193, 7, 0.5);
-      max-width: 600px;
+      max-width: 700px;
       margin: 0 auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .maintenance-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 193, 7, 0.1) 0%, transparent 70%);
+      z-index: -1;
     }
 
     .maintenance-icon {
-      font-size: 4rem;
+      font-size: 5rem;
       margin-bottom: 20px;
-      color: #ffc107;
+      color: var(--accent-gold);
+      animation: bounce 2s infinite;
     }
 
     .maintenance-title {
-      font-size: 1.8rem;
-      margin-bottom: 15px;
-      color: #ffc107;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--accent-gold);
     }
 
     .maintenance-text {
       color: #ccc;
       line-height: 1.6;
       margin-bottom: 20px;
+      font-size: 1.1rem;
     }
 
     .progress-container {
       width: 100%;
-      height: 10px;
+      height: 12px;
       background: rgba(255,255,255,0.1);
-      border-radius: 5px;
-      margin: 20px 0;
+      border-radius: 10px;
+      margin: 30px 0;
       overflow: hidden;
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
     }
 
     .progress-bar {
       height: 100%;
       width: 65%;
-      background: linear-gradient(90deg, #ffc107, #ff9800);
-      border-radius: 5px;
-      animation: progress-pulse 2s infinite;
+      background: linear-gradient(90deg, var(--accent-gold), #ff9800);
+      border-radius: 10px;
+      animation: progress-pulse 2s infinite, progress-move 3s infinite alternate;
+      box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
     }
 
     .countdown {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       margin: 20px 0;
-      color: #ffc107;
+      color: var(--accent-gold);
+      font-weight: 600;
     }
 
-    /* ======== MEMBER CARD ======== */
-    .member-card {
-      position: relative;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 15px;
-      width: 200px;
-      height: 220px;
-      overflow: hidden;
-      transition: 0.3s ease;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-      cursor: pointer;
-    }
-
-    .member-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 25px rgba(230,57,70,0.4);
-    }
-
-    .profile-pic {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.9);
-      transition: 0.4s ease;
-    }
-
-    .member-card:hover .profile-pic {
-      filter: brightness(0.5);
-      transform: scale(1.05);
-    }
-
-    .rank {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      font-weight: bold;
-      text-transform: uppercase;
-      border-radius: 8px;
-      display: inline-block;
-      padding: 4px 8px;
-      font-size: 0.8rem;
-    }
-
-    .hokage { background: linear-gradient(90deg, #ff4500, #ffa500); color: white; }
-    .anbu { background: linear-gradient(90deg, #6a0dad, #b5179e); color: white; }
-    .booster { background: linear-gradient(90deg, #0077b6, #00b4d8); color: white; }
-    .streamer { background: linear-gradient(90deg, #ff0080, #ff8fa3); color: white; }
-    .perekrut { background: linear-gradient(90deg, #00b894, #55efc4); color: black; }
-    .member { background: linear-gradient(90deg, #444, #666); color: white; }
-
-    .name-overlay {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      background: rgba(0,0,0,0.7);
-      color: white;
-      text-align: center;
-      padding: 8px;
-      font-size: 1rem;
-      opacity: 0;
-      transform: translateY(100%);
-      transition: 0.4s ease;
-    }
-
-    .member-card:hover .name-overlay,
-    .member-card.touch .name-overlay {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      font-size: 0.9rem;
-      color: #aaa;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .member-card {
-      animation: fadeIn 0.8s ease forwards;
-    }
-
-    /* ======== ROBLOX STATUS STYLES ======== */
+    /* ======== GAME STATUS STYLES ======== */
     .game-status {
-      background: rgba(0,0,0,0.3);
-      border-radius: 15px;
-      padding: 20px;
-      margin: 30px auto;
-      max-width: 600px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 40px auto;
+      max-width: 700px;
       text-align: center;
-      border: 1px solid #00b4d8;
+      border: 1px solid var(--accent-blue);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-status::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0, 180, 216, 0.1) 0%, transparent 70%);
+      z-index: -1;
     }
 
     .game-status-title {
-      font-size: 1.5rem;
-      margin-bottom: 15px;
-      color: #00b4d8;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: var(--accent-blue);
     }
 
     .game-status-info {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       line-height: 1.6;
+      font-size: 1.1rem;
     }
 
     .game-status-btn {
-      background: linear-gradient(90deg, #00b4d8, #0077b6);
+      background: linear-gradient(90deg, var(--accent-blue), #0077b6);
       color: white;
       border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      font-weight: bold;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: 600;
       cursor: pointer;
-      transition: 0.3s;
+      transition: all 0.3s;
       text-decoration: none;
       display: inline-block;
-      margin: 5px;
+      margin: 8px;
+      box-shadow: 0 5px 15px rgba(0, 180, 216, 0.3);
     }
 
     .game-status-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(0, 180, 216, 0.5);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 180, 216, 0.5);
+    }
+
+    /* ======== DISCORD MEMBERS STYLES ======== */
+    .discord-members {
+      background: rgba(0,0,0,0.4);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 40px auto;
+      max-width: 700px;
+      text-align: center;
+      border: 1px solid var(--accent-purple);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .discord-members::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(88, 101, 242, 0.1) 0%, transparent 70%);
+      z-index: -1;
+    }
+
+    .discord-title {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: var(--accent-purple);
+    }
+
+    .discord-members-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .discord-member {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.1);
+      padding: 10px 18px;
+      border-radius: 25px;
+      width: fit-content;
+      transition: all 0.3s;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .discord-member:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.15);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .discord-avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .discord-status {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-left: 5px;
+      box-shadow: 0 0 5px currentColor;
+    }
+
+    .status-online { background-color: #43b581; color: #43b581; }
+    .status-idle { background-color: #faa61a; color: #faa61a; }
+    .status-dnd { background-color: #f04747; color: #f04747; }
+    .status-offline { background-color: #747f8d; color: #747f8d; }
+
+    .discord-activity {
+      font-size: 0.8rem;
+      color: #aaa;
+      margin-top: 3px;
+    }
+
+    .discord-join-btn {
+      background: linear-gradient(90deg, var(--accent-purple), #7289da);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+      box-shadow: 0 5px 15px rgba(88, 101, 242, 0.3);
+    }
+
+    .discord-join-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(88, 101, 242, 0.5);
+    }
+
+    .refresh-info {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-top: 15px;
     }
 
     .loading {
@@ -280,94 +430,21 @@
       animation: spin 1s ease-in-out infinite;
     }
 
-    /* ======== DISCORD MEMBERS STYLES ======== */
-    .discord-members {
-      background: rgba(0,0,0,0.3);
-      border-radius: 15px;
-      padding: 20px;
-      margin: 30px auto;
-      max-width: 600px;
+    /* ======== FOOTER ======== */
+    footer {
       text-align: center;
-      border: 1px solid #5865F2;
-    }
-
-    .discord-title {
-      font-size: 1.5rem;
-      margin-bottom: 15px;
-      color: #5865F2;
-    }
-
-    .discord-members-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .discord-member {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(255,255,255,0.1);
-      padding: 8px 15px;
-      border-radius: 20px;
-      width: fit-content;
-      transition: transform 0.2s;
-    }
-
-    .discord-member:hover {
-      transform: scale(1.05);
-      background: rgba(255,255,255,0.15);
-    }
-
-    .discord-avatar {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-    }
-
-    .discord-status {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      margin-left: 5px;
-    }
-
-    .status-online { background-color: #43b581; }
-    .status-idle { background-color: #faa61a; }
-    .status-dnd { background-color: #f04747; }
-    .status-offline { background-color: #747f8d; }
-
-    .discord-activity {
-      font-size: 0.8rem;
+      padding: 40px 20px;
+      font-size: 1rem;
       color: #aaa;
-      margin-top: 2px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.5);
+      margin-top: 40px;
     }
 
-    .discord-join-btn {
-      background: linear-gradient(90deg, #5865F2, #7289da);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 15px;
-    }
-
-    .discord-join-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(88, 101, 242, 0.5);
-    }
-
-    .refresh-info {
-      font-size: 0.8rem;
-      color: #aaa;
-      margin-top: 10px;
+    /* ======== ANIMATIONS ======== */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes spin {
@@ -376,16 +453,84 @@
 
     @keyframes progress-pulse {
       0% { opacity: 1; }
-      50% { opacity: 0.7; }
+      50% { opacity: 0.8; }
       100% { opacity: 1; }
     }
 
-    @media(max-width: 600px) {
-      .member-card {
-        width: 45%;
-        height: 180px;
+    @keyframes progress-move {
+      0% { transform: translateX(-5%); }
+      100% { transform: translateX(5%); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes titleGlow {
+      0% { text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
+      100% { text-shadow: 0 5px 20px rgba(230, 57, 70, 0.5); }
+    }
+
+    /* ======== RESPONSIVE STYLES ======== */
+    @media (max-width: 768px) {
+      .hero h2 {
+        font-size: 2.2rem;
       }
-      .name-overlay {
+      
+      .hero p {
+        font-size: 1rem;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+      
+      .maintenance-title, .game-status-title, .discord-title {
+        font-size: 1.5rem;
+      }
+      
+      .maintenance-icon {
+        font-size: 4rem;
+      }
+      
+      .game-status, .discord-members, .maintenance-container {
+        padding: 25px 20px;
+      }
+      
+      .discord-member {
+        padding: 8px 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 15px;
+      }
+      
+      header img {
+        width: 50px;
+        height: 50px;
+      }
+      
+      header h1 {
+        font-size: 1.5rem;
+      }
+      
+      .hero {
+        padding: 60px 15px;
+      }
+      
+      .hero h2 {
+        font-size: 1.8rem;
+      }
+      
+      section {
+        padding: 40px 15px;
+      }
+      
+      .game-status-btn, .discord-join-btn {
+        padding: 10px 20px;
         font-size: 0.9rem;
       }
     }
@@ -398,12 +543,19 @@
   </header>
 
   <section class="hero">
-    <h2>Selamat Datang di Shinobi Lounge</h2>
-    <p>Tempat berkumpulnya para ninja Discord! Di sini, kita berbagi tawa, mabar, dan misi rahasia. Kenali para shinobi kami di bawah ini!</p>
+    <div class="hero-content">
+      <h2>Selamat Datang di Shinobi Lounge</h2>
+      <p>Tempat berkumpulnya para ninja Discord! Di sini, kita berbagi tawa, mabar, dan misi rahasia. Kenali para shinobi kami di bawah ini!</p>
+      <div class="hero-badges">
+        <div class="hero-badge">🎮 Gaming Community</div>
+        <div class="hero-badge">🤝 Friendly Environment</div>
+        <div class="hero-badge">🌟 Active Members</div>
+      </div>
+    </div>
   </section>
 
   <section>
-    <h3>Jajaran Shinobi</h3>
+    <h3 class="section-title">Jajaran Shinobi</h3>
     <div class="maintenance-container">
       <div class="maintenance-icon">🔧</div>
       <h2 class="maintenance-title">Sedang Dalam Perbaikan</h2>
@@ -419,9 +571,6 @@
         Terima kasih atas pengertian dan kesabaran Anda. Tetap pantau perkembangan kami!
       </p>
     </div>
-    <!--
-    <div class="rank-section" id="member-list"></div>
-    -->
   </section>
 
   <!-- Fish It! Game Status Section -->
@@ -518,30 +667,60 @@
     const discordMembersList = document.getElementById('discord-members-list');
     const refreshDiscordBtn = document.getElementById('refresh-discord');
     
+    // Function to fetch Discord widget data with CORS proxy
+    async function fetchDiscordWidget() {
+      try {
+        // Using CORS proxy to bypass CORS restrictions
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        const targetUrl = 'https://discord.com/api/guilds/1348859145222094888/widget.json';
+        
+        const response = await fetch(proxyUrl + targetUrl);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('Error fetching Discord widget:', error);
+        
+        // Fallback: try without proxy (might work if server allows CORS)
+        try {
+          const response = await fetch('https://discord.com/api/guilds/1348859145222094888/widget.json');
+          if (response.ok) {
+            const data = await response.json();
+            return data;
+          }
+        } catch (fallbackError) {
+          console.error('Fallback also failed:', fallbackError);
+        }
+        
+        throw error;
+      }
+    }
+    
     async function checkDiscordMembers() {
       try {
         discordStatus.innerHTML = '<span class="loading"></span> Memeriksa member online di Discord...';
         
-        // URL widget Discord (ganti dengan server ID yang sesuai)
-        const widgetUrl = 'https://discord.com/api/guilds/1348859145222094888/widget.json';
-        
-        const response = await fetch(widgetUrl);
-        const data = await response.json();
+        const data = await fetchDiscordWidget();
         
         if (data.members && data.members.length > 0) {
-          discordStatus.innerHTML = `🟢 Ada ${data.members.length} member online di Discord`;
+          // Filter only online members
+          const onlineMembers = data.members.filter(member => 
+            member.status !== 'offline' && member.status !== 'invisible'
+          );
+          
+          discordStatus.innerHTML = `🟢 Ada ${onlineMembers.length} member online di Discord`;
           
           // Clear previous list
           discordMembersList.innerHTML = '';
           
           // Add each member
-          data.members.forEach(member => {
+          onlineMembers.forEach(member => {
             const memberDiv = document.createElement('div');
             memberDiv.classList.add('discord-member');
-            
-            // Use default avatar if none provided
-            const avatarUrl = member.avatar_url || 
-              `https://cdn.discordapp.com/embed/avatars/${member.id % 5}.png`;
             
             // Determine status indicator
             let statusClass = 'status-offline';
@@ -551,25 +730,41 @@
             
             // Get activity if available
             let activityHtml = '';
-            if (member.game) {
+            if (member.game && member.game.name) {
               activityHtml = `<div class="discord-activity">🎮 ${member.game.name}</div>`;
             }
             
+            // Use avatar URL or default
+            const avatarUrl = member.avatar_url || 
+              `https://cdn.discordapp.com/embed/avatars/${member.id % 5}.png`;
+            
+            // Truncate long usernames
+            const displayName = member.username.length > 12 
+              ? member.username.substring(0, 12) + '...' 
+              : member.username;
+            
             memberDiv.innerHTML = `
-              <img class="discord-avatar" src="${avatarUrl}" alt="${member.username}">
-              <span>${member.username}</span>
+              <img class="discord-avatar" src="${avatarUrl}" alt="${member.username}" onerror="this.src='https://cdn.discordapp.com/embed/avatars/${member.id % 5}.png'">
+              <span>${displayName}</span>
               <div class="discord-status ${statusClass}"></div>
               ${activityHtml}
             `;
             
             discordMembersList.appendChild(memberDiv);
           });
+          
+          // If no online members
+          if (onlineMembers.length === 0) {
+            discordMembersList.innerHTML = '<p>Tidak ada member online saat ini</p>';
+          }
         } else {
           discordStatus.innerHTML = '🔴 Tidak ada member online saat ini';
+          discordMembersList.innerHTML = '<p>Tidak ada member online saat ini</p>';
         }
       } catch (error) {
-        discordStatus.innerHTML = '❌ Gagal memuat data member Discord';
         console.error('Error fetching Discord members:', error);
+        discordStatus.innerHTML = '❌ Gagal memuat data member Discord';
+        discordMembersList.innerHTML = '<p>Silakan refresh halaman atau coba lagi nanti</p>';
       }
     }
     
@@ -587,6 +782,26 @@
     // Check both statuses on page load
     checkFishItStatus();
     checkDiscordMembers();
+    
+    // Add fade-in animation to sections when they come into view
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'fadeIn 0.8s ease forwards';
+        }
+      });
+    }, observerOptions);
+    
+    // Observe all sections
+    document.querySelectorAll('section').forEach(section => {
+      section.style.opacity = '0';
+      observer.observe(section);
+    });
   </script>
 </body>
 </html>
